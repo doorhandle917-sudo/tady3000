@@ -1,44 +1,759 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <title>Communism Edit</title>
-    <style>
-        body,
-        html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #000;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TADYCOIN 🪙 — To The Moon (For Real This Time)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #f72bdb;
+    --hot-pink: #ff0acd;
+    --deep-pink: #c4009e;
+    --gold: #ffd700;
+    --gold2: #ffb300;
+    --dark: #0a0010;
+    --darker: #060008;
+    --purple: #1a0030;
+    --neon-green: #39ff14;
+    --white: #fff;
+    --glass: rgba(247,43,219,0.08);
+    --glass-border: rgba(247,43,219,0.3);
+  }
 
-        video {
-            width: 95vw;
-            height: auto;
-            max-height: 95vh;
-            border-radius: 8px;
-        }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        .container {
-            text-align: center;
-        }
-    </style>
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--darker);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='10' fill='%23f72bdb' opacity='0.8'/%3E%3C/svg%3E") 16 16, auto;
+  }
+
+  /* ---- STARFIELD ---- */
+  #stars {
+    position: fixed; inset: 0; z-index: 0;
+    background: radial-gradient(ellipse at 20% 30%, #1a003066 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 70%, #2d005066 0%, transparent 60%),
+                var(--darker);
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .star {
+    position: absolute; border-radius: 50%;
+    background: white; animation: twinkle var(--d) ease-in-out infinite alternate;
+  }
+  @keyframes twinkle {
+    from { opacity: 0.1; transform: scale(0.8); }
+    to   { opacity: 0.9; transform: scale(1.2); }
+  }
+
+  /* ---- TICKER ---- */
+  .ticker-wrap {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--pink);
+    overflow: hidden; height: 32px;
+    display: flex; align-items: center;
+  }
+  .ticker-track {
+    display: flex; gap: 60px;
+    animation: ticker 18s linear infinite;
+    white-space: nowrap;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px; font-weight: 700;
+    color: var(--dark);
+    padding-left: 100%;
+  }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ---- NAV ---- */
+  nav {
+    position: fixed; top: 32px; left: 0; right: 0; z-index: 99;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 48px;
+    background: rgba(6,0,8,0.8);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px; letter-spacing: 3px;
+    background: linear-gradient(90deg, var(--pink), var(--gold));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    color: rgba(255,255,255,0.6); text-decoration: none;
+    font-size: 13px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--pink); }
+  .nav-cta {
+    background: linear-gradient(135deg, var(--pink), var(--gold2));
+    border: none; color: #000; font-weight: 700;
+    padding: 10px 24px; border-radius: 4px;
+    font-family: 'Space Mono', monospace; font-size: 12px;
+    cursor: pointer; letter-spacing: 1px;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 0 20px rgba(247,43,219,0.4);
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(247,43,219,0.7); }
+
+  /* ---- HERO ---- */
+  #hero {
+    position: relative; z-index: 1;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    padding: 140px 24px 80px;
+  }
+
+  .hero-disclaimer {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; color: rgba(255,255,255,0.2);
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 24px;
+    animation: fadeInUp 1s 0.2s both;
+  }
+
+  .hero-coin {
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    position: relative;
+    animation: floatCoin 4s ease-in-out infinite, fadeInUp 1s 0.3s both;
+    margin-bottom: 40px;
+    filter: drop-shadow(0 0 40px rgba(247,43,219,0.8)) drop-shadow(0 0 80px rgba(247,43,219,0.4));
+  }
+  .hero-coin img {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .coin-ring {
+    position: absolute; inset: -8px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    background: linear-gradient(var(--dark), var(--dark)) padding-box,
+                linear-gradient(45deg, var(--pink), var(--gold), var(--pink)) border-box;
+    animation: spinRing 3s linear infinite;
+  }
+  @keyframes spinRing { to { transform: rotate(360deg); } }
+  @keyframes floatCoin {
+    0%, 100% { transform: translateY(0) rotate(-1deg); }
+    50% { transform: translateY(-20px) rotate(1deg); }
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 14vw, 160px);
+    line-height: 0.9;
+    letter-spacing: -2px;
+    background: linear-gradient(135deg, var(--white) 0%, var(--pink) 40%, var(--gold) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    animation: fadeInUp 1s 0.4s both;
+    text-shadow: none;
+  }
+
+  .hero-sub {
+    font-size: 18px; color: rgba(255,255,255,0.65);
+    max-width: 520px; line-height: 1.7;
+    margin: 20px auto 0;
+    animation: fadeInUp 1s 0.6s both;
+  }
+
+  .hero-price {
+    margin-top: 32px;
+    font-family: 'Space Mono', monospace;
+    animation: fadeInUp 1s 0.7s both;
+  }
+  .price-label { font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 3px; text-transform: uppercase; }
+  .price-value {
+    font-size: 52px; font-weight: 700;
+    background: linear-gradient(90deg, var(--gold), var(--gold2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .price-change {
+    font-size: 16px; color: var(--neon-green);
+    margin-left: 12px;
+    animation: pulse 1s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
+  .hero-buttons {
+    display: flex; gap: 16px; margin-top: 40px; flex-wrap: wrap; justify-content: center;
+    animation: fadeInUp 1s 0.9s both;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--hot-pink), var(--gold2));
+    color: #000; font-weight: 800; border: none;
+    padding: 18px 40px; border-radius: 4px;
+    font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px;
+    cursor: pointer; transition: all 0.2s;
+    box-shadow: 0 0 30px rgba(247,43,219,0.5);
+  }
+  .btn-primary:hover { transform: scale(1.05); box-shadow: 0 0 60px rgba(247,43,219,0.9); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--white); font-weight: 700; 
+    border: 1px solid var(--glass-border);
+    padding: 18px 40px; border-radius: 4px;
+    font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px;
+    cursor: pointer; transition: all 0.2s;
+    backdrop-filter: blur(8px);
+  }
+  .btn-secondary:hover { border-color: var(--pink); color: var(--pink); }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---- STATS BAR ---- */
+  .stats-bar {
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--glass-border);
+    border-top: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .stat-item {
+    background: rgba(10,0,16,0.9);
+    padding: 28px 24px; text-align: center;
+    backdrop-filter: blur(12px);
+  }
+  .stat-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 28px; font-weight: 700;
+    background: linear-gradient(90deg, var(--pink), var(--gold));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .stat-label { font-size: 11px; color: rgba(255,255,255,0.35); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
+
+  /* ---- SECTION SHARED ---- */
+  section { position: relative; z-index: 1; padding: 100px 24px; }
+  .section-tag {
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    color: var(--pink); letter-spacing: 4px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 8vw, 96px);
+    line-height: 0.95; letter-spacing: -1px;
+    background: linear-gradient(135deg, var(--white), rgba(255,255,255,0.6));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .section-title span {
+    background: linear-gradient(90deg, var(--pink), var(--gold));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+
+  /* ---- WHY ---- */
+  #why { background: linear-gradient(180deg, var(--darker) 0%, var(--purple) 100%); }
+  #why .inner { max-width: 1100px; margin: 0 auto; }
+  .why-grid {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 64px;
+  }
+  .why-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px; padding: 36px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .why-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(247,43,219,0.05), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .why-card:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(247,43,219,0.2); }
+  .why-card:hover::before { opacity: 1; }
+  .why-icon { font-size: 40px; margin-bottom: 16px; }
+  .why-card h3 {
+    font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 1px;
+    color: var(--gold); margin-bottom: 10px;
+  }
+  .why-card p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.7; }
+
+  /* ---- TOKENOMICS ---- */
+  #tokenomics { background: var(--darker); }
+  #tokenomics .inner { max-width: 1100px; margin: 0 auto; }
+  .toko-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 64px; align-items: center; }
+  .toko-chart {
+    position: relative; width: 320px; height: 320px; margin: 0 auto;
+  }
+  .toko-chart svg { transform: rotate(-90deg); }
+  .toko-chart-center {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .toko-chart-center span:first-child {
+    font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--gold);
+  }
+  .toko-chart-center span:last-child {
+    font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 2px; text-transform: uppercase;
+  }
+  .toko-items { display: flex; flex-direction: column; gap: 16px; }
+  .toko-item { display: flex; align-items: center; gap: 16px; }
+  .toko-dot { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+  .toko-item-label { font-size: 14px; color: rgba(255,255,255,0.5); flex: 1; }
+  .toko-item-pct { font-family: 'Space Mono', monospace; font-size: 16px; font-weight: 700; color: var(--white); }
+
+  /* ---- ROADMAP ---- */
+  #roadmap {
+    background: linear-gradient(180deg, var(--purple) 0%, var(--darker) 100%);
+  }
+  #roadmap .inner { max-width: 900px; margin: 0 auto; }
+  .roadmap-list { margin-top: 64px; position: relative; }
+  .roadmap-list::before {
+    content: ''; position: absolute; left: 24px; top: 0; bottom: 0; width: 1px;
+    background: linear-gradient(180deg, var(--pink), var(--gold), transparent);
+  }
+  .roadmap-item { display: flex; gap: 48px; margin-bottom: 48px; position: relative; }
+  .roadmap-dot-wrap { position: relative; flex-shrink: 0; }
+  .roadmap-dot {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--pink), var(--gold2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; z-index: 1; position: relative;
+    box-shadow: 0 0 20px rgba(247,43,219,0.5);
+  }
+  .roadmap-dot.done { background: linear-gradient(135deg, var(--neon-green), #00cc00); }
+  .roadmap-content { padding-top: 8px; }
+  .roadmap-phase {
+    font-family: 'Space Mono', monospace; font-size: 10px; color: var(--pink);
+    letter-spacing: 3px; text-transform: uppercase; margin-bottom: 6px;
+  }
+  .roadmap-title {
+    font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--white); letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .roadmap-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.7; }
+
+  /* ---- CTA ---- */
+  #cta {
+    background: radial-gradient(ellipse at 50% 0%, rgba(247,43,219,0.2) 0%, transparent 70%), var(--darker);
+    text-align: center;
+  }
+  #cta .inner { max-width: 700px; margin: 0 auto; }
+  .cta-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(60px, 12vw, 130px);
+    line-height: 0.9;
+    background: linear-gradient(135deg, var(--pink) 0%, var(--gold) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 24px;
+  }
+  .cta-sub { font-size: 16px; color: rgba(255,255,255,0.45); margin-bottom: 48px; line-height: 1.7; }
+
+  /* ---- FOOTER ---- */
+  footer {
+    position: relative; z-index: 1;
+    border-top: 1px solid var(--glass-border);
+    padding: 40px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; color: rgba(255,255,255,0.2);
+    font-family: 'Space Mono', monospace;
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 3px;
+    background: linear-gradient(90deg, var(--pink), var(--gold));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .footer-disclaimer {
+    max-width: 400px; text-align: center; font-size: 9px; line-height: 1.6;
+    color: rgba(255,255,255,0.12);
+  }
+  .footer-socials { display: flex; gap: 16px; }
+  .footer-socials a {
+    color: rgba(255,255,255,0.2); text-decoration: none; font-size: 11px;
+    transition: color 0.2s; text-transform: uppercase; letter-spacing: 1px;
+  }
+  .footer-socials a:hover { color: var(--pink); }
+
+  /* ---- FLOATING COINS ---- */
+  .float-coin {
+    position: fixed; pointer-events: none; z-index: 0;
+    font-size: 24px; opacity: 0;
+    animation: floatUp var(--dur) ease-in var(--delay) infinite;
+  }
+  @keyframes floatUp {
+    0%   { opacity: 0; transform: translateY(0) rotate(0deg); }
+    10%  { opacity: 0.7; }
+    90%  { opacity: 0.3; }
+    100% { opacity: 0; transform: translateY(-120vh) rotate(720deg); }
+  }
+
+  /* ---- LASER EYES ---- */
+  .laser-container { position: relative; display: inline-block; }
+  .laser-l, .laser-r {
+    position: absolute; width: 3px; height: 3px;
+    background: var(--hot-pink);
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px var(--hot-pink), 0 0 15px var(--hot-pink), 0 0 30px var(--hot-pink);
+    animation: laserPulse 0.8s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+  .laser-beam-l, .laser-beam-r {
+    position: absolute; height: 2px; width: 60px;
+    background: linear-gradient(90deg, var(--hot-pink), transparent);
+    transform-origin: left center;
+    animation: laserBeam 0.8s ease-in-out infinite alternate;
+    opacity: 0.8;
+  }
+  @keyframes laserPulse { from{box-shadow:0 0 0 2px var(--hot-pink),0 0 10px var(--hot-pink),0 0 20px var(--hot-pink);} to{box-shadow:0 0 0 2px var(--hot-pink),0 0 25px var(--hot-pink),0 0 50px var(--hot-pink),0 0 80px var(--hot-pink);} }
+  @keyframes laserBeam { from{width:40px;opacity:0.5} to{width:80px;opacity:1} }
+
+  /* ---- RESPONSIVE ---- */
+  @media(max-width:768px){
+    nav{padding:10px 20px;}
+    .nav-links{display:none;}
+    .stats-bar{grid-template-columns:1fr 1fr;}
+    .why-grid{grid-template-columns:1fr;}
+    .toko-grid{grid-template-columns:1fr;}
+    footer{flex-direction:column;gap:16px;text-align:center;}
+    .footer-disclaimer{max-width:100%;}
+  }
+</style>
 </head>
-
 <body>
 
-    <div class="container">
-        <!-- Public‑domain Soviet film "Strike" (1925) as the edit -->
-        <video id="edit" src="XI JINPING _ EDIT.mp4" autoplay loop
-            controls>
-            Your browser does not support the video tag.
-        </video>
+<!-- STARFIELD -->
+<div id="stars"></div>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track" id="ticker"></div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">TADYCOIN</div>
+  <div class="nav-links">
+    <a href="#why">Why TADY</a>
+    <a href="#tokenomics">Tokenomics</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#cta">Buy Now</a>
+  </div>
+  <button class="nav-cta">BUY $TADY</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <p class="hero-disclaimer">⚠️ Totally not financial advice. Probably.</p>
+
+  <div class="hero-coin laser-container" id="coinWrap">
+    <div class="coin-ring"></div>
+    <img src="image.jpg" alt="TadyCoin" />
+    <!-- laser eyes injected by JS -->
+  </div>
+
+  <h1 class="hero-title">TADYCOIN</h1>
+  <p class="hero-sub">The coin that guy in the pink bubble sent you. Revolutionary. Disruptive. Definitely real money. Built different. 💅</p>
+
+  <div class="hero-price">
+    <div class="price-label">Current Price</div>
+    <div>
+      <span class="price-value" id="livePrice">$0.000042</span>
+      <span class="price-change" id="priceChange">+6,969% ↑</span>
     </div>
+  </div>
 
+  <div class="hero-buttons">
+    <button class="btn-primary" onclick="alert('Sending all your savings to TADY... just kidding. (Or are we?)')">🚀 BUY $TADY NOW</button>
+    <button class="btn-secondary">📄 READ WHITEPAPER</button>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num" id="s1">$420.69M</div>
+    <div class="stat-label">Market Cap</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">1,000,000,000</div>
+    <div class="stat-label">Total Supply</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num" id="s2">69,420</div>
+    <div class="stat-label">Holders</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">∞</div>
+    <div class="stat-label">Moon Probability</div>
+  </div>
+</div>
+
+<!-- WHY -->
+<section id="why">
+  <div class="inner">
+    <p class="section-tag">// reason to ape in</p>
+    <h2 class="section-title">Why <span>$TADY</span> Goes<br>Straight Up</h2>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🧑‍💼</div>
+        <h3>Guy In A Bubble</h3>
+        <p>Our founder literally lives in a pink bubble. This is peak utility. No other coin has a founder in a bubble. Unmatched fundamentals.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">💼</div>
+        <h3>Professional Briefcase</h3>
+        <p>The man carries a briefcase. Do you carry a briefcase? He does. That briefcase is full of TADY. This is institutional-grade crypto.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">👔</div>
+        <h3>Tie + Shorts Combo</h3>
+        <p>Business on top, party on the bottom. Exactly like our tokenomics. Professional whitepaper, degenerate APY. The perfect blend.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🫧</div>
+        <h3>Bubble Technology™</h3>
+        <p>Our proprietary BubbleTech™ ensures price can only go up. Much like a bubble, TADY is transparent, round, and floats upward. No notes.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🤓</div>
+        <h3>Smart Glasses</h3>
+        <p>Founders wear glasses. Glasses = smart. Smart = good crypto. The correlation between eyewear and market cap is undeniable. DYOR.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">📈</div>
+        <h3>Number Go Up</h3>
+        <p>Our advanced algorithm is: number go up. We have a team of 47 analysts whose sole job is ensuring number go up. Very sophisticated.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOKENOMICS -->
+<section id="tokenomics">
+  <div class="inner">
+    <p class="section-tag">// follow the money</p>
+    <h2 class="section-title">Toke<span>nomics</span></h2>
+    <div class="toko-grid">
+      <div class="toko-chart">
+        <svg viewBox="0 0 320 320" width="320" height="320">
+          <circle cx="160" cy="160" r="130" fill="none" stroke="#1a0030" stroke-width="40"/>
+          <!-- 40% pink -->
+          <circle cx="160" cy="160" r="130" fill="none" stroke="#f72bdb" stroke-width="40"
+            stroke-dasharray="326 490" stroke-dashoffset="0"/>
+          <!-- 25% gold -->
+          <circle cx="160" cy="160" r="130" fill="none" stroke="#ffd700" stroke-width="40"
+            stroke-dasharray="204 612" stroke-dashoffset="-326"/>
+          <!-- 20% purple -->
+          <circle cx="160" cy="160" r="130" fill="none" stroke="#9b30ff" stroke-width="40"
+            stroke-dasharray="163 653" stroke-dashoffset="-530"/>
+          <!-- 15% neon -->
+          <circle cx="160" cy="160" r="130" fill="none" stroke="#39ff14" stroke-width="40"
+            stroke-dasharray="122 694" stroke-dashoffset="-693"/>
+        </svg>
+        <div class="toko-chart-center">
+          <span>1B</span>
+          <span>Total Supply</span>
+        </div>
+      </div>
+      <div class="toko-items">
+        <div class="toko-item">
+          <div class="toko-dot" style="background:#f72bdb"></div>
+          <div class="toko-item-label">Public Sale (Presale Buyers)</div>
+          <div class="toko-item-pct">40%</div>
+        </div>
+        <div class="toko-item">
+          <div class="toko-dot" style="background:#ffd700"></div>
+          <div class="toko-item-label">Liquidity Pool</div>
+          <div class="toko-item-pct">25%</div>
+        </div>
+        <div class="toko-item">
+          <div class="toko-dot" style="background:#9b30ff"></div>
+          <div class="toko-item-label">Team & Advisors (definitely not selling)</div>
+          <div class="toko-item-pct">20%</div>
+        </div>
+        <div class="toko-item">
+          <div class="toko-dot" style="background:#39ff14"></div>
+          <div class="toko-item-label">Marketing & Memes</div>
+          <div class="toko-item-pct">15%</div>
+        </div>
+        <br/>
+        <p style="font-size:13px;color:rgba(255,255,255,0.3);line-height:1.8;">
+          🔒 Liquidity locked forever (or until we feel like it)<br>
+          📝 Smart contract audited by my cousin who knows computers<br>
+          🐳 No whales. Just a guy. In a bubble.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="inner">
+    <p class="section-tag">// the plan (trust)</p>
+    <h2 class="section-title">Road<span>map</span></h2>
+    <div class="roadmap-list">
+      <div class="roadmap-item">
+        <div class="roadmap-dot-wrap">
+          <div class="roadmap-dot done">✅</div>
+        </div>
+        <div class="roadmap-content">
+          <div class="roadmap-phase">Phase 1 — Complete</div>
+          <div class="roadmap-title">Guy Gets In Bubble</div>
+          <div class="roadmap-desc">Man enters bubble. Coin is created. The world changes forever. We make the website. You are here.</div>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot-wrap">
+          <div class="roadmap-dot done">✅</div>
+        </div>
+        <div class="roadmap-content">
+          <div class="roadmap-phase">Phase 2 — Complete</div>
+          <div class="roadmap-title">Meme Goes Viral</div>
+          <div class="roadmap-desc">Post coin on every Discord server. Ping everyone. Put coin in Telegram groups. Secure TikTok influencer who will "just talk about it".</div>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot-wrap">
+          <div class="roadmap-dot">🔥</div>
+        </div>
+        <div class="roadmap-content">
+          <div class="roadmap-phase">Phase 3 — In Progress</div>
+          <div class="roadmap-title">CEX Listings & Moon</div>
+          <div class="roadmap-desc">Get listed on some exchange (working on it). Price goes 10,000x. Guy in bubble becomes richest man in Slovakia. We all make it.</div>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot-wrap">
+          <div class="roadmap-dot">🌕</div>
+        </div>
+        <div class="roadmap-content">
+          <div class="roadmap-phase">Phase 4 — The Dream</div>
+          <div class="roadmap-title">TADY World Domination</div>
+          <div class="roadmap-desc">Replace all national currencies with TADY. Guy exits bubble, buys country. TadyCoin accepted at all major retailers. Lamborghinis for everyone.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="inner">
+    <p class="section-tag">// last chance (it's not)</p>
+    <div class="cta-big">YOU IN<br>OR YOU OUT?</div>
+    <p class="cta-sub">Don't be the person who looked at Bitcoin in 2010 and said "seems risky". This is probably different. Statistics suggest 100% of TADY holders smile more.</p>
+    <button class="btn-primary" style="font-size:28px;padding:22px 60px;" onclick="alert('🚀 Welcome to the TADY family! Please consult a financial advisor before doing anything we suggested.')">
+      🪙 APE INTO $TADY
+    </button>
+    <br><br>
+    <p style="font-size:11px;color:rgba(255,255,255,0.15);font-family:'Space Mono',monospace;margin-top:24px;">
+      Contract: 0xTADY...6969 &nbsp;|&nbsp; Chain: PinkChain™ &nbsp;|&nbsp; Tax: 0/0 (pinky promise)
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">TADYCOIN</div>
+  <div class="footer-disclaimer">
+    TADYCOIN ($TADY) is a meme coin with no intrinsic value or financial return expectation. 
+    This website is for entertainment purposes only. Not financial advice. 
+    The guy in the bubble is not responsible for your portfolio decisions. 
+    Please do not invest money you cannot afford to lose. We are serious about this part.
+  </div>
+  <div class="footer-socials">
+    <a href="#">Twitter</a>
+    <a href="#">Telegram</a>
+    <a href="#">Discord</a>
+    <a href="#">GitHub</a>
+  </div>
+</footer>
+
+<script>
+// === STARFIELD ===
+const starContainer = document.getElementById('stars');
+for(let i = 0; i < 200; i++){
+  const s = document.createElement('div');
+  s.className = 'star';
+  const size = Math.random() * 2 + 0.5;
+  s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*4}s;animation-delay:${Math.random()*4}s`;
+  starContainer.appendChild(s);
+}
+
+// === TICKER ===
+const tickerItems = [
+  '🪙 $TADY +6,969%','💰 MCAP $420.69M','🚀 TO THE MOON','🫧 BUBBLE TECH™','✅ TOTALLY LEGIT',
+  '📈 NUMBER GO UP','🤓 SMART GLASSES','💼 BRIEFCASE FULL OF TADY','🌕 PHASE 4 INCOMING',
+  '🔥 NOT FINANCIAL ADVICE','👔 TIE + SHORTS = ALPHA','🪙 $TADY +6,969%','💰 MCAP $420.69M',
+  '🚀 TO THE MOON','🫧 BUBBLE TECH™','✅ TOTALLY LEGIT','📈 NUMBER GO UP',
+];
+const track = document.getElementById('ticker');
+const full = [...tickerItems, ...tickerItems].map(t => `<span>${t}</span>`).join('');
+track.innerHTML = full + full;
+
+// === FLOATING COINS ===
+const emojis = ['🪙','💰','🫧','🚀','💎','🌕'];
+for(let i = 0; i < 12; i++){
+  const el = document.createElement('div');
+  el.className = 'float-coin';
+  el.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+  el.style.cssText = `left:${Math.random()*100}%;bottom:-40px;--dur:${6+Math.random()*8}s;--delay:${Math.random()*10}s`;
+  document.body.appendChild(el);
+}
+
+// === LIVE PRICE (fake) ===
+const basePrice = 0.000042;
+let currentPrice = basePrice;
+const priceEl = document.getElementById('livePrice');
+const changeEl = document.getElementById('priceChange');
+
+setInterval(() => {
+  const delta = (Math.random() - 0.3) * 0.000002;
+  currentPrice = Math.max(0.000001, currentPrice + delta);
+  const pct = ((currentPrice - basePrice) / basePrice * 100).toFixed(2);
+  priceEl.textContent = '$' + currentPrice.toFixed(8);
+  changeEl.textContent = (pct >= 0 ? '+' : '') + pct + '% ' + (pct >= 0 ? '↑' : '↓');
+  changeEl.style.color = pct >= 0 ? 'var(--neon-green)' : '#ff4444';
+}, 1200);
+
+// === LASER EYES on coin ===
+(function(){
+  const wrap = document.getElementById('coinWrap');
+  const img = wrap.querySelector('img');
+
+  const mkDot = (l, t, rot) => {
+    const dot = document.createElement('div');
+    dot.className = l < 50 ? 'laser-l' : 'laser-r';
+    dot.style.cssText = `left:${l}%;top:${t}%;position:absolute;`;
+    const beam = document.createElement('div');
+    beam.className = 'laser-beam-l';
+    beam.style.cssText = `left:${l}%;top:${t}%;position:absolute;transform:rotate(${rot}deg);transform-origin:left center;`;
+    wrap.appendChild(dot);
+    wrap.appendChild(beam);
+  };
+  mkDot(34, 38, -8);
+  mkDot(60, 38, 8);
+})();
+
+// === SCROLL REVEAL ===
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.why-card, .roadmap-item, .toko-item').forEach(el => {
+  el.style.cssText += 'opacity:0;transform:translateY(24px);transition:opacity 0.6s ease, transform 0.6s ease;';
+  observer.observe(el);
+});
+</script>
 </body>
-
 </html>
